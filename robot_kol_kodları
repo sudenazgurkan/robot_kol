@@ -1,0 +1,137 @@
+JOYSTİCK KODLARI : 
+
+ 
+
+int xPin = A0; // A0-A5 analog pinlerinden herhangi birine bağlanabilir. 
+int yPin = A1; // A0-A5 analog pinlerinden herhangi birine bağlanabilir. 
+int butonPin = 2; // Joystick buton pini arduino bağlantısı (Joystick SW çıkışı) 
+  
+int xPozisyonu = 0; 
+int yPozisyonu = 0; 
+int butonDurum = 0; 
+  
+void setup() { 
+Serial.begin(9600); 
+pinMode(xPin, INPUT); 
+pinMode(yPin, INPUT); 
+pinMode(butonPin, INPUT_PULLUP); 
+  
+  
+} 
+  
+void loop() { 
+xPozisyonu = analogRead(xPin); 
+yPozisyonu = analogRead(yPin); 
+butonDurum = digitalRead(butonPin); 
+  
+Serial.print("X Pozisyonu: "); 
+Serial.print(xPozisyonu); 
+Serial.print(" | Y Pozisyonu: "); 
+Serial.print(yPozisyonu); 
+Serial.print(" | Buton Durum: "); 
+Serial.println(butonDurum); 
+  
+delay(100); 
+} 
+
+ROBOT KOL KODLARI:       
+
+ 
+
+#include <Servo.h> 
+ 
+Servo alt,ileri,yukari,grip ; //servoları tanıtıyoruz. 
+ 
+ 
+int xPin1 = A0; // A0-A5 analog pinlerinden herhangi birine bağlanabilir.    
+int yPin1 = A1; // A0-A5 analog pinlerinden herhangi birine bağlanabilir. 
+int xPin2 = A3; 
+int yPin2 = A4; 
+int buton1 = 2; // Joystick buton pini arduino bağlantısı (Joystick SW çıkışı) 
+int buton2 = 3; 
+ 
+int xPozisyonu1,yPozisyonu1,xPozisyonu2,yPozisyonu2,butonD1,butonD2; 
+  
+void setup() { 
+Serial.begin(9600); 
+pinMode(xPin1, INPUT); 
+pinMode(yPin1, INPUT); 
+pinMode(buton1, INPUT_PULLUP); 
+pinMode(xPin2, INPUT); 
+pinMode(yPin2, INPUT); 
+pinMode(buton2, INPUT_PULLUP); 
+alt.attach(11);   // Servolarımızı Arduino'nun pwm(~) çıkışlarına bağlamamız gerekir bu pinler 3,5,6,9,10,11dir. 
+ileri.attach(10); 
+yukari.attach(9); 
+grip.attach(6); 
+ 
+} 
+
+void loop() { 
+xPozisyonu1 = analogRead(xPin1); 
+yPozisyonu1 = analogRead(yPin1); 
+butonD1 = digitalRead(buton1); 
+xPozisyonu2 = analogRead(xPin2); 
+yPozisyonu2 = analogRead(yPin2); 
+butonD2 = digitalRead(buton2); 
+ROBOT KOL KODLARI:       
+
+ 
+
+#include <Servo.h> 
+ 
+Servo alt,ileri,yukari,grip ; //servoları tanıtıyoruz. 
+ 
+ 
+int xPin1 = A0; // A0-A5 analog pinlerinden herhangi birine bağlanabilir.    
+int yPin1 = A1; // A0-A5 analog pinlerinden herhangi birine bağlanabilir. 
+int xPin2 = A3; 
+int yPin2 = A4; 
+int buton1 = 2; // Joystick buton pini arduino bağlantısı (Joystick SW çıkışı) 
+int buton2 = 3; 
+ 
+int xPozisyonu1,yPozisyonu1,xPozisyonu2,yPozisyonu2,butonD1,butonD2; 
+  
+void setup() { 
+Serial.begin(9600); 
+pinMode(xPin1, INPUT); 
+pinMode(yPin1, INPUT); 
+pinMode(buton1, INPUT_PULLUP); 
+pinMode(xPin2, INPUT); 
+pinMode(yPin2, INPUT); 
+pinMode(buton2, INPUT_PULLUP); 
+alt.attach(11);   // Servolarımızı Arduino'nun pwm(~) çıkışlarına bağlamamız gerekir bu pinler 3,5,6,9,10,11dir. 
+ileri.attach(10); 
+yukari.attach(9); 
+grip.attach(6); 
+ 
+} 
+
+void loop() { 
+xPozisyonu1 = analogRead(xPin1); 
+yPozisyonu1 = analogRead(yPin1); 
+butonD1 = digitalRead(buton1); 
+xPozisyonu2 = analogRead(xPin2); 
+yPozisyonu2 = analogRead(yPin2); 
+butonD2 = digitalRead(buton2); 
+else if (xPozisyonu2 >= 0 && xPozisyonu2 <= 1023) // ileri/geri 
+{ 
+  int servo3 = xPozisyonu2; 
+  servo3 = map(servo3, 0, 1023, 0, 180); 
+  yukari.write(servo3); 
+  delay(10); 
+//  Serial.println("ileri geri gelen veri"); 
+//  Serial.println(servo3); 
+ 
+} 
+  else if (yPozisyonu2 >= 0 && yPozisyonu2 <= 1023) // Gripper 
+{ 
+  int servo4 = yPozisyonu2; 
+  servo4 = map(servo4, 0, 1023, 0, 180); 
+  grip.write(servo4); 
+  delay(10); 
+//  Serial.println("gripper gelen veri"); 
+//  Serial.println(servo4); 
+ 
+} 
+} 
